@@ -25,6 +25,8 @@ class RedactingFormatter(logging.Formatter):
     def __init__(self, fields):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.FIELDS=fields
+        
+        
     def format(self, record: logging.LogRecord) -> str:
         """ Formats a log record, obfuscating fields as needed """
         formatted_record = super(RedactingFormatter, self).format(record)
