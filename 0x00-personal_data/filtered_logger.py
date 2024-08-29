@@ -5,8 +5,8 @@ from typing import List
 regmat = r"(\w+)=([a-zA-Z0-9@\.\-\(\)\ \:\^\<\>\~\$\%\@\?\!\/]*)"
 
 
-def filter_datum(fields: List[str], redaction: str, message: str,
-                 separator: str) -> str:
+def filter_datum(fields: List[str], redaction: str, message, separator) -> str:
     """ returns the log message obfuscated """
     return re.sub(regmat, lambda match: match.group(1) + "=" + redaction
                   if match.group(1) in fields else match.group(0), message)
+    
