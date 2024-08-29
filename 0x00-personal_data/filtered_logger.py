@@ -5,13 +5,7 @@ from typing import List
 """Defines a function the retunr an obfuscated msg"""
 regmat = r"(\w+)=([a-zA-Z0-9@\.\-\(\)\ \:\^\<\>\~\$\%\@\?\!\/]*)"
 
-PII_FIELDS = (
-    "Name",
-    "Email",
-    "Phone",
-    "SSN",
-    "Password"
-    )
+PII_FIELDS = ("Name", "Email", "Phone", "SSN", "Password")
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
@@ -43,11 +37,6 @@ class RedactingFormatter(logging.Formatter):
 def get_logger() -> logging.Logger:
     """
     Returns a logger with a valid filename and a custom formatter.
-
-    The logger will be a root logger.
-
-    Returns:
-        logging.Logger: The configured logger.
     """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
