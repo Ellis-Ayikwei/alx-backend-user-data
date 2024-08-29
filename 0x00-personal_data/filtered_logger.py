@@ -22,7 +22,7 @@ class RedactingFormatter(logging.Formatter):
     SEPARATOR = ";"
     
 
-    def __init__(self, fields):
+    def __init__(self, fields: List):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields=fields
         
