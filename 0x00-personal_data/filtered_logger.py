@@ -5,6 +5,14 @@ from typing import List
 """Defines a function the retunr an obfuscated msg"""
 regmat = r"(\w+)=([a-zA-Z0-9@\.\-\(\)\ \:\^\<\>\~\$\%\@\?\!\/]*)"
 
+PII_FIELDS = (
+    "Name",
+    "Email",
+    "Phone",
+    "SSN",
+    "Password"
+    )
+
 
 def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
@@ -30,3 +38,13 @@ class RedactingFormatter(logging.Formatter):
         msg = super(RedactingFormatter, self).format(record)
         txt = filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
         return txt
+
+
+def get_logger() -> logging.Logger:
+    """function that takes no arguments and returns a logging.Logger object"""
+    logging.basicConfig(filename="user_data", level=logging.INFO)
+    stream_handler = logging.StreamHandler
+
+    stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
+    return logging.getLogger()
+    
