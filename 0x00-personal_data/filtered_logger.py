@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import re
 """Defines a function the retunr an obfuscated message"""
 
