@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
+"""Defines a function the retunr an obfuscated msg"""
+
 import re
 import logging
 from typing import List
-"""Defines a function the retunr an obfuscated msg"""
 regmat = r"(\w+)=([a-zA-Z0-9@\.\-\(\)\ \:\^\<\>\~\$\%\@\?\!\/]*)"
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
