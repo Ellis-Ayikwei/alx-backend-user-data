@@ -20,15 +20,15 @@ class RedactingFormatter(logging.Formatter):
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
-    FIELDS = []
+    
 
     def __init__(self, fields):
         super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.FIELDS=fields
+        self.fields=fields
         
         
     def format(self, record: logging.LogRecord) -> str:
         """ Formats a log record, obfuscating fields as needed """
         formatted_record = super(RedactingFormatter, self).format(record)
-        return filter_datum(self.fields, self.redaction,
-                            formatted_record, self.separator)
+        return filter_datum(self.fields, self.REDACTION,
+                            formatted_record, self.SEPARATOR)
