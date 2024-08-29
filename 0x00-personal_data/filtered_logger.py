@@ -42,7 +42,7 @@ class RedactingFormatter(logging.Formatter):
 
 def get_logger() -> logging.Logger:
     """Returns a logger with a valid filename and a custom formatter.
-    
+
     The logger will be a root logger.
     """
     user_data = logging.getLogger()
@@ -50,13 +50,10 @@ def get_logger() -> logging.Logger:
     user_data.propagate = False 
 
     formatter = RedactingFormatter(PII_FIELDS)
-    file_handler = logging.FileHandler("user_data")
-    file_handler.setFormatter(formatter)
 
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(formatter)
 
-    user_data.addHandler(file_handler)
     user_data.addHandler(stream_handler)
 
     return user_data
