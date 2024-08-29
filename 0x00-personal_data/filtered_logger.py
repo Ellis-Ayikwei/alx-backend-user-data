@@ -5,7 +5,7 @@ from typing import List
 """Defines a function the retunr an obfuscated msg"""
 regmat = r"(\w+)=([a-zA-Z0-9@\.\-\(\)\ \:\^\<\>\~\$\%\@\?\!\/]*)"
 
-PII_FIELDS = ("Name", "Email", "Phone", "SSN", "Password")
+PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
