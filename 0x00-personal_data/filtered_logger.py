@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import re
 from typing import List
-"""Defines a function the retunr an obfuscated msg"""
 
 
 def filter_datum(fields: List[str], redaction: str, msg: str, sep: str) -> str:
