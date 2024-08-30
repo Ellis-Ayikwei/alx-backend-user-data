@@ -5,6 +5,7 @@ import re
 import logging
 from typing import List
 import mysql.connector
+from mysql.connector import Error
 import os
 import bcrypt
 regmat = r"(\w+)=([a-zA-Z0-9@\.\-\(\)\ \:\^\<\>\~\$\%\@\?\!\/]*)"
@@ -58,19 +59,26 @@ def get_logger() -> logging.Logger:
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """Returns a connector to the database."""
-
     database_username = os.getenv("PERSONal_DATA_DB_USERNAME", "root")
     database_password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
     database_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
     database_name = os.getenv("PERSONAL_DATA_DB_NAME", "")
 
-    connection = mysql.connector.connect(
-        user=database_username,
-        password=database_password,
-        port=3306,
-        host=database_host,
-        database=database_name,
-    )
+    try:
+        connection = mysql.connector.connect(
+            user='your_username',
+            password='your_password',
+            host='localhost',
+            database='your_database'
+        )
+        if connection.is_connected():
+            print("Connected to MySQL database")
+    except Error as e:
+        print(f"Error: {e}")
+    finally:
+        if connection.is_connected():
+            connection.close()
+            print("MySQL connection is closed")
     return connection
 
 
