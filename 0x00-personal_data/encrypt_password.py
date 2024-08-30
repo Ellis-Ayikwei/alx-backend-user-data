@@ -1,4 +1,4 @@
-#!/usr/bin/env python3 
+#!/usr/bin/env python3
 """Defines a function the retunr an obfuscated msg"""
 import bcrypt
 
