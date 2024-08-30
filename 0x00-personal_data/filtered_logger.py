@@ -74,11 +74,6 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     return connection
 
 
-def hash_password(password: str) -> bytes:
-    """Returns a hashed password."""
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
-
 def main():
     """Logs the information about user records in a table.
     """
