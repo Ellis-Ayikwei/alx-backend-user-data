@@ -58,20 +58,28 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> connection.MySQLConnection:
-    """Creates a connector to a database.
-    """
+def get_db() -> Optional[connection.MySQLConnection]:
+    """Creates a connector to a database."""
     db_host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
     db_name = os.getenv("PERSONAL_DATA_DB_NAME", "")
     db_user = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
     db_pwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
-    conn = connection.MySQLConnection(
-        host=db_host,
-        user=db_user,
-        password=db_pwd,
-        database=db_name,
-    )
-    return conn
+    
+    if not db_name:
+        logging.error("Database name not provided.")
+        return None
+    
+    try:
+        conn = connection.MySQLConnection(
+            host=db_host,
+            user=db_user,
+            password=db_pwd,
+            database=db_name,
+        )
+        return conn
+    except Error as e:
+        logging.error(f"Error connecting to database: {e}")
+        return None
 
 
 def main():
