@@ -6,6 +6,7 @@ import logging
 from typing import List
 import mysql.connector
 import os
+import bcrypt
 regmat = r"(\w+)=([a-zA-Z0-9@\.\-\(\)\ \:\^\<\>\~\$\%\@\?\!\/]*)"
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
@@ -71,6 +72,11 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         database=database_name,
     )
     return connection
+
+
+def hash_password(password: str) -> bytes:
+    """Returns a hashed password."""
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
 
 def main():
