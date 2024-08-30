@@ -64,11 +64,11 @@ def get_db() -> connection.MySQLConnection:
     db_name = os.getenv("PERSONAL_DATA_DB_NAME", "")
     db_user = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
     db_pwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
-    
+
     if not db_name:
         logging.error("Database name not provided.")
         return None
-    
+
     try:
         conn = connection.MySQLConnection(
             host=db_host,
