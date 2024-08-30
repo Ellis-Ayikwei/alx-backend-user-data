@@ -73,6 +73,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     )
     return connection
 
+
 def main():
     """Logs the information about user records in a table.
     """
