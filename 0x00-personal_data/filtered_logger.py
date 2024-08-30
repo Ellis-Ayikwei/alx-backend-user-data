@@ -73,7 +73,6 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     return connection
 
 
-
 def main():
     """Logs the information about user records in a table.
     """
@@ -94,6 +93,7 @@ def main():
             args = ("user_data", logging.INFO, None, None, msg, None, None)
             log_record = logging.LogRecord(*args)
             info_logger.handle(log_record)
-    
+
+
 if __name__ == "__main__":
     main()
