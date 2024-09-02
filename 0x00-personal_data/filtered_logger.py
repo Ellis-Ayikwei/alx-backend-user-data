@@ -65,21 +65,13 @@ def get_db() -> connection.MySQLConnection:
     db_user = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
     db_pwd = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
 
-    if not db_name:
-        logging.error("Database name not provided.")
-        return None
-
-    try:
-        conn = connection.MySQLConnection(
-            host=db_host,
-            user=db_user,
-            password=db_pwd,
-            database=db_name,
-        )
-        return conn
-    except Error as e:
-        logging.error(f"Error connecting to database: {e}")
-        return None
+    conn = connection.MySQLConnection(
+        host=db_host,
+        user=db_user,
+        password=db_pwd,
+        database=db_name,
+    )
+    return conn
 
 
 def main():
