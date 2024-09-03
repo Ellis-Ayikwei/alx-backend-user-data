@@ -62,7 +62,7 @@ def Unauthorized(error: Exception) -> Tuple[Response, int]:
     Returns:
         A tuple containing a JSON response with the error message and a 401 status code.
     """
-    return jsonify({"error": "Unauthorized"}), 401
+    return jsonify({"error": "unauthorized"}), 401
 
 
 @app.errorhandler(403)
