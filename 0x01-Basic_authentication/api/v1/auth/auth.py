@@ -28,7 +28,7 @@ class Auth:
         print("normalized_excluded_paths")
         return normalized_path not in normalized_excluded_paths
 
-    def authorization_header(self, request: flask.Request = None) -> str:
+    def authorization_header(self, request: request = None) -> str:
         """
         Retrieves the value of the Authorization header from the request.
 
