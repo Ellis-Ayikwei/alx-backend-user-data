@@ -7,7 +7,7 @@ It provides the following methods:
 authentication, False otherwise.
 """
 from flask import request
-from typing import List, TypeVar
+
 
 import flask
 
