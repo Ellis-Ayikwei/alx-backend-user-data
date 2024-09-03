@@ -7,8 +7,7 @@ It provides the following methods:
 authentication, False otherwise.
 """
 from flask import request
-from typing import List
-
+from typing import List,TypeVar
 import flask
 
 
@@ -29,7 +28,7 @@ class Auth:
         print("normalized_excluded_paths")
         return normalized_path not in normalized_excluded_paths
 
-    def get_auth_header(self, request: flask.Request = None) -> str:
+    def authorization_header(self, request: flask.Request = None) -> str:
         """
         Retrieves the value of the Authorization header from the request.
 
@@ -44,5 +43,8 @@ class Auth:
             return None
         return request.headers["Authorization"]
 
-    def current_user(self, request=None) -> TypeVar("User"):
+    def current_user(self, request=None) -> TypeVar('User'):
+        """
+        Retrieves the current user.
+        """
         return None
