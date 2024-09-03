@@ -7,7 +7,7 @@
 #     """
 #     if path is None or not excluded_paths:
 #         return True
-    
+
 #     normalized_path = path.rstrip('/')
 #     normalized_excluded_paths = [p.rstrip('/') for p in excluded_paths]
 #     print("normalized_excluded_paths")
@@ -19,5 +19,3 @@
 # ]
 
 # print(require_auth(path='/api/v1/status/', excluded_paths ))
-
-       

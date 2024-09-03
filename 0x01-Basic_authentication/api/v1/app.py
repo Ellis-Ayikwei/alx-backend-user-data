@@ -22,6 +22,7 @@ if os.getenv("AUTH_TYPE"):
     else:
         auth = Auth()
 
+
 @app.before_request
 def check_auth() -> None:
     """Check if authentication is required for the current request"""
@@ -30,9 +31,9 @@ def check_auth() -> None:
 
     path = request.path
     excluded_paths = [
-        '/api/v1/status/',
-        '/api/v1/unauthorized/',
-        '/api/v1/forbidden/',
+        "/api/v1/status/",
+        "/api/v1/unauthorized/",
+        "/api/v1/forbidden/",
     ]
 
     if not auth.require_auth(path, excluded_paths):
