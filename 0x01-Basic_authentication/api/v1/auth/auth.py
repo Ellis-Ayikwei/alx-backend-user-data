@@ -17,19 +17,9 @@ class Auth:
     Auth class handles authentication for the AirBnB clone.
     """
 
-    def require_auth(
-        self, path: str, excluded_paths: List[str]
-    ) -> bool:
+    def require_auth(self, path, excluded_paths):
         """
         Returns True if the path requires authentication, False otherwise.
-
-        Args:
-            path (str): The path to check.
-            excluded_paths (List[str]): A list of paths that don't require
-                authentication.
-
-        Returns:
-            bool: True if the path requires authentication, False otherwise.
         """
         if path is None or not excluded_paths:
             return True
@@ -38,7 +28,6 @@ class Auth:
         normalized_excluded_paths = [p.rstrip("/") for p in excluded_paths]
         print("normalized_excluded_paths")
         return normalized_path not in normalized_excluded_paths
-
 
     def get_auth_header(self, request: flask.Request = None) -> str:
         """
