@@ -44,4 +44,3 @@ def get_forbidden():
         - 403
     """
     abort(403)
-

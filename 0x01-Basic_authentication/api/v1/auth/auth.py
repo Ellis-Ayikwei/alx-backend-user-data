@@ -3,7 +3,8 @@
 This module contains the Auth class.
 The Auth class handles authentication for the AirBnB clone.
 It provides the following methods:
-- require_auth: Returns True if the path requires authentication, False otherwise.
+- require_auth: Returns True if the path requires
+authentication, False otherwise.
 """
 from flask import request
 from typing import List, TypeVar
