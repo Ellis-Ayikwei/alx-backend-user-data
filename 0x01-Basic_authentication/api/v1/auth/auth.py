@@ -9,6 +9,8 @@ authentication, False otherwise.
 from flask import request
 from typing import List, TypeVar
 
+import flask
+
 
 class Auth:
     """
@@ -27,10 +29,16 @@ class Auth:
         print("normalized_excluded_paths")
         return normalized_path not in normalized_excluded_paths
 
-    def get_auth_header(self, request: object = None) -> str:
+    def get_auth_header(self, request: flask.Request = None) -> str:
         """
         Retrieves the value of the Authorization header from the request.
-        If the header is not found, returns None.
+
+        Args:
+            request (flask.Request): The request object.
+
+        Returns:
+            str: The value of the Authorization header, or None if the header
+                is not found.
         """
         if request is None or "Authorization" not in request.headers:
             return None
