@@ -17,7 +17,9 @@ class BasicAuth(Auth):
     For the moment this class will be empty.
     """
 
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(
+        self, authorization_header: str
+    ) -> str:
         """Returns the Base64 part of the Authorization
         header for a BasicAuth
         """
@@ -45,7 +47,8 @@ class BasicAuth(Auth):
             return None
 
         try:
-            return base64.standard_b64decode(base64_authorization_header).decode(
+            return base64.standard_b64decode(
+                base64_authorization_header).decode(
                 "utf-8"
             )
         except Exception:
