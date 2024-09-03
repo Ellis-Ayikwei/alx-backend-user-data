@@ -32,7 +32,6 @@ class Auth:
         #     return False
         return False
 
-
     def authorization_header(self, request=None) -> str:
         """
         Retrieves the value of the Authorization header from the request.
