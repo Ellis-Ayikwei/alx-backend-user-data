@@ -30,21 +30,21 @@ def check_auth() -> None:
     if auth is None:
         return
 
-    # path = request.path
-    # excluded_paths = [
-    #     "/api/v1/status/",
-    #     "/api/v1/unauthorized/",
-    #     "/api/v1/forbidden/",
-    # ]
+    path = request.path
+    excluded_paths = [
+        "/api/v1/status/",
+        "/api/v1/unauthorized/",
+        "/api/v1/forbidden/",
+    ]
 
-    # if not auth.require_auth(path, excluded_paths):
-    #     return
+    if not auth.require_auth(path, excluded_paths):
+        return
 
-    # auth_header = auth.get_auth_header(request)
-    # if auth_header is None:
-    #     abort(401)
-    # if auth.current_user(request) is None:
-    #     abort(403)
+    auth_header = auth.get_auth_header(request)
+    if auth_header is None:
+        abort(401)
+    if auth.current_user(request) is None:
+        abort(403)
 
 
 @app.errorhandler(404)
