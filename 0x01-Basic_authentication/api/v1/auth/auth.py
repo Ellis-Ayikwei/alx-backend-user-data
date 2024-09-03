@@ -17,7 +17,7 @@ class Auth:
     Auth class handles authentication for the AirBnB clone.
     """
 
-    def require_auth(self, path, excluded_paths):
+    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
         Returns True if the path requires authentication, False otherwise.
         """
