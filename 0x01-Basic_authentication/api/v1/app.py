@@ -6,7 +6,7 @@ authentication, and error handling for the API.
 
 from os import getenv
 from api.v1.views import app_views
-from flask import Flask, jsonify, abort, request, url_for
+from flask import Flask, jsonify, abort, request, url_for, Response
 from flask_cors import CORS
 from api.v1.auth.auth import Auth
 from api.v1.auth.basic_auth import BasicAuth
@@ -56,11 +56,11 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(401)
-def unauthorized(error: Exception) -> Dict[str, str]:
+def unauthorized(error: Exception) -> Tuple[Response, int]:
     """Handles 401 Unauthorized errors.
 
     Returns:
-        A JSON response with the error message and a 401 status code.
+        A tuple containing a JSON response with the error message and a 401 status code.
     """
     return jsonify({"error": "Unauthorized"}), 401
 
