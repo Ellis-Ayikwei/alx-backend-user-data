@@ -11,7 +11,7 @@ from flask_cors import CORS
 from api.v1.auth.auth import Auth
 from api.v1.auth.basic_auth import BasicAuth
 from api.v1.views.index import get_forbidden
-from typing import Dict
+from typing import Dict, Tuple
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
@@ -56,7 +56,7 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(401)
-def unauthorized(error: Exception) -> Tuple[Response, int]:
+def Unauthorized(error: Exception) -> Tuple[Response, int]:
     """Handles 401 Unauthorized errors.
 
     Returns:
