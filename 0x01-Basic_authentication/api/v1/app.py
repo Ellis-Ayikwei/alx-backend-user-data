@@ -14,7 +14,7 @@ from api.v1.views.index import get_forbidden
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
+app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 
@@ -23,6 +23,7 @@ if getenv("AUTH_TYPE"):
         auth = BasicAuth()
     else:
         auth = Auth()
+
 
 @app.before_request
 def check_auth() -> None:
@@ -46,10 +47,12 @@ def check_auth() -> None:
     if auth.current_user(request) is None:
         abort(403)
 
+
 @app.errorhandler(404)
 def not_found(error) -> str:
     """Not found handler"""
     return jsonify({"error": "Not found"}), 404
+
 
 @app.errorhandler(401)
 def unauthorised(error):
@@ -59,10 +62,12 @@ def unauthorised(error):
     """
     return jsonify({"error": "Unauthorized"}), 401
 
+
 @app.errorhandler(403)
 def forbidden(error) -> str:
     """Forbidden handler"""
     return jsonify({"error": "Forbidden"}), 403
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")

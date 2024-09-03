@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Module of Index views
 This module defines the index views for the API, including routes for checking
-the status, retrieving statistics, and handling unauthorized and forbidden requests.
+the status, retrieving statistics, and handling unauthorized and
+forbidden requests.
 """
 from flask import jsonify, abort
 from api.v1.views import app_views
@@ -29,8 +30,7 @@ def stats():
 
 @app_views.route("/unauthorized", methods=["GET"], strict_slashes=False)
 def unauthorized():
-    """GET /unauthorized
-    """
+    """GET /unauthorized"""
     abort(401)
 
 
