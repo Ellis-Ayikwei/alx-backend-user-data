@@ -7,7 +7,7 @@ It provides the following methods:
 authentication, False otherwise.
 """
 from flask import request
-from typing import List,TypeVar
+from typing import List, TypeVar
 import flask
 
 
@@ -43,7 +43,7 @@ class Auth:
             return None
         return request.headers["Authorization"]
 
-    def current_user(self, request=None) -> TypeVar('User'):
+    def current_user(self, request=None) -> TypeVar("User"):
         """
         Retrieves the current user.
         """
