@@ -17,23 +17,21 @@ class BasicAuth(Auth):
     For the moment this class will be empty.
     """
 
-    def extract_base64_authorization_header(
-        self, authorization_header: str
-    ) -> str:
-        """Returns the Base64 part of the Authorization
-        header for a BasicAuth
+    def extract_user_credentials(self, decoded_base64_authorization_header: str):
         """
-        if authorization_header is None:
-            return None
-
-        if not isinstance(authorization_header, str):
-            return None
-
-        if not authorization_header.startswith("Basic "):
-            return None
-
-        return authorization_header[6:]
-
+        Extracts user credentials from the Base64 decoded authorization header.
+        Allows passwords to contain ':'.
+        """
+        if decoded_base64_authorization_header is None or not isinstance(decoded_base64_authorization_header, str):
+            return None, None
+    
+        if ':' not in decoded_base64_authorization_header:
+            return None, None
+    
+        # Split at the first occurrence of ':'
+        user_email, user_pwd = decoded_base64_authorization_header.split(':', 1)
+        return user_email, user_pwd
+    
     def decode_base64_authorization_header(
         self, base64_authorization_header: str
     ) -> str:
