@@ -59,13 +59,13 @@ def not_found(error) -> str:
 def unauthorized(error) -> Tuple[str, Literal[401]]:
     """Unauthorized handler.
     """
-    return jsonify({"error": "Unauthorized"}), 401
+    return jsonify({"error": "unauthorized"}), 401
 
 
 @app.errorhandler(403)
 def forbidden(error) -> Tuple[str, Literal[403]]:
     """Forbidden handler"""
-    return jsonify({"error": "Forbidden"}), 403
+    return jsonify({"error": "forbidden"}), 403
 
 
 if __name__ == "__main__":

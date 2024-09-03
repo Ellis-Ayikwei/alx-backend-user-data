@@ -35,7 +35,7 @@ def unauthorized() -> str:
 
 
 @app_views.route("/forbidden", methods=["GET"], strict_slashes=False)
-def get_forbidden():
+def forbidden():
     """GET /forbidden
     Return:
         - Triggers a 403 Forbidden error.
