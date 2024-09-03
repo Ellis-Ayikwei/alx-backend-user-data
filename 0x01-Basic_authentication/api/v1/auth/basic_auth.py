@@ -1,9 +1,4 @@
 #!/usr/bin/env python3
-from api.v1.auth.auth import Auth
-# import base64
-# from typing import TypeVar
-
-
 """This module contains the BasicAauth class.
 The BasicAauth class handles Basic Auth for the AirBnB clone.
 It provides the following methods:
@@ -11,6 +6,11 @@ It provides the following methods:
 Base64 part of the Authorization
     header for a BasicAuth
 """
+from api.v1.auth.auth import Auth
+# import base64
+# from typing import TypeVar
+
+
 
 
 class BasicAuth(Auth):
