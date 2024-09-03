@@ -9,6 +9,7 @@ Base64 part of the Authorization
 from api.v1.auth.auth import Auth
 import base64
 from typing import TypeVar
+from models.user import User
 
 
 class BasicAuth(Auth):
@@ -76,4 +77,7 @@ class BasicAuth(Auth):
             return None
         if user_pwd is None or not isinstance(user_pwd, str):
             return None
+        new_user = User()
+        if new_user.is_valid_password(user_pwd):
+            return new_user
         return None
