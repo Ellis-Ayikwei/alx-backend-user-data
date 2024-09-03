@@ -40,7 +40,7 @@ def check_auth() -> None:
     if not auth.require_auth(path, excluded_paths):
         return
 
-    auth_header = auth.get_auth_header(request)
+    auth_header = auth.authorization_header(request)
     if auth_header is None:
         abort(401)
     if auth.current_user(request) is None:
