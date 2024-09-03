@@ -55,10 +55,11 @@ def not_found(error) -> str:
 
 
 @app.errorhandler(401)
-def unauthorised(error):
-    """Handler for 401 Unauthorized error.
+def unauthorized(error: Exception) -> tuple:
+    """Handles 401 Unauthorized errors.
+
     Returns:
-        - JSON response with the error message.
+        A JSON response with the error message and a 401 status code.
     """
     return jsonify({"error": "Unauthorized"}), 401
 
