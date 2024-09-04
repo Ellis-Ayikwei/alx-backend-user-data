@@ -30,7 +30,8 @@ class Auth:
         ]
         for excluded_path in normalized_excluded_paths:
             if re.search(r"\*$", excluded_path):
-                if re.search("^" + excluded_path.replace("*", ""), normalized_path):
+                if re.search("^" + excluded_path.replace("*", ""),
+                             normalized_path):
                     return False
             else:
                 if normalized_path == excluded_path:
