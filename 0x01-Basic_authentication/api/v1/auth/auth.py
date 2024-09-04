@@ -6,6 +6,7 @@ It provides the following methods:
 - require_auth: Returns True if the path requires
 authentication, False otherwise.
 """
+import re
 from flask import request
 from typing import List, TypeVar
 import flask
@@ -24,7 +25,12 @@ class Auth:
             return True
 
         normalized_path = path.rstrip("/")
-        normalized_excluded_paths = [p.rstrip("/") for p in excluded_paths]
+        normalized_excluded_paths = [excluded_path.rstrip("/")\
+            for excluded_path in excluded_paths]
+        for excluded_path in normalized_excluded_paths:
+            if re.search(r"[*$]", excluded_path):
+                if re.search(excluded_path, normalized_path):
+                    return False
         return normalized_path not in normalized_excluded_paths
 
     def authorization_header(self, request=None) -> str:
