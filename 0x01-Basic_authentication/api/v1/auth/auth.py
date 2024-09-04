@@ -28,10 +28,13 @@ class Auth:
         normalized_excluded_paths = [excluded_path.rstrip("/")\
             for excluded_path in excluded_paths]
         for excluded_path in normalized_excluded_paths:
-            if re.search(r"[*$]", excluded_path):
-                if re.search(excluded_path, normalized_path):
+            if re.search(r"\*$", excluded_path):
+                if re.search("^" + excluded_path.replace("*", ""), normalized_path):
                     return False
-        return normalized_path not in normalized_excluded_paths
+            else:
+                if normalized_path == excluded_path:
+                    return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """
