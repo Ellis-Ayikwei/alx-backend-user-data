@@ -18,9 +18,7 @@ class BasicAuth(Auth):
     For the moment this class will be empty.
     """
 
-    def extract_base64_authorization_header(
-        self, authorization_header: str
-    ) -> str:
+    def extract_base64_authorization_header(self, authorization_header: str) -> str:
         """Returns the Base64 part of the Authorization
         header for a BasicAuth
         """
@@ -48,29 +46,28 @@ class BasicAuth(Auth):
             return None
 
         try:
-            return base64.standard_b64decode(
-                base64_authorization_header).decode(
+            return base64.standard_b64decode(base64_authorization_header).decode(
                 "utf-8"
             )
         except Exception:
             return None
 
     def extract_user_credentials(
-            self,
-            decoded_base64_authorization_header: str,
-            ) -> Tuple[str, str]:
+        self,
+        decoded_base64_authorization_header: str,
+    ) -> Tuple[str, str]:
         """Extracts user credentials from a base64-decoded authorization
         header that uses the Basic authentication flow.
         """
         if isinstance(decoded_base64_authorization_header, str):
-            pattern = r'(?P<user>[^:]+):(?P<password>.+)'
+            pattern = r"(?P<user>[^:]+):(?P<password>.+)"
             field_match = re.fullmatch(
                 pattern,
                 decoded_base64_authorization_header.strip(),
             )
             if field_match is not None:
-                user = field_match.group('user')
-                password = field_match.group('password')
+                user = field_match.group("user")
+                password = field_match.group("password")
                 return user, password
         return None, None
 

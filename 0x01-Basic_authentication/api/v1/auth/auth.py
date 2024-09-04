@@ -25,8 +25,9 @@ class Auth:
             return True
 
         normalized_path = path.rstrip("/")
-        normalized_excluded_paths = [excluded_path.rstrip("/")\
-            for excluded_path in excluded_paths]
+        normalized_excluded_paths = [
+            excluded_path.rstrip("/") for excluded_path in excluded_paths
+        ]
         for excluded_path in normalized_excluded_paths:
             if re.search(r"\*$", excluded_path):
                 if re.search("^" + excluded_path.replace("*", ""), normalized_path):
