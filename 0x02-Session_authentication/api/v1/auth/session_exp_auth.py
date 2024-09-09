@@ -8,6 +8,7 @@ sa = SessionAuth()
 
 
 class SessionExpAuth(sa):
+    """Define the class for the session exp auth"""
     def __init__(self):
         self.session_duration = int(os.getenv('SESSION_DURATION')) \
             if os.getenv('SESSION_DURATION') else 0
