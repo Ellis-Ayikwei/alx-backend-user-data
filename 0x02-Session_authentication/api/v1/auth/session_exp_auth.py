@@ -10,18 +10,16 @@ class SessionExpAuth(SessionAuth):
     def __init__(self):
         self.session_duration = int(os.getenv('SESSION_DURATION')) \
             if os.getenv('SESSION_DURATION') else 0
-        self.session_cookie_duration = self.session_duration
 
     def create_session(self, user_id: str = None) -> str:
         """creates a session id for the user id"""
         session_id = super().create_session(user_id)
         if session_id is None:
             return None
-        expiration_date = datetime.now()\
-            + timedelta(seconds=self.session_duration)
+       
         self.user_id_by_session_id[session_id] = {
             'user_id': user_id,
-            'created_at': datetime.now()
+            'created_at': datetime.now(),
         }
         return session_id
 
@@ -32,18 +30,21 @@ class SessionExpAuth(SessionAuth):
         if session_id is None:
             return None
 
-        if session_id not in self.user_id_by_session_id:
-            return None
+        session_info = self.user_id_by_session_id.get(session_id)
 
-        session_info = self.user_id_by_session_id[session_id]
+        if session_info is None:
+            return None
 
         if self.session_duration <= 0:
             return session_info["user_id"]
 
         if "created_at" not in session_info:
             return None
-        if int(session_info["created_at"])\
-                + self.session_duration < datetime.now():
+
+        created_at = session_info["created_at"]
+        session_expiration = created_at + timedelta(seconds=self.session_duration)
+
+        if datetime.now() > session_expiration:
             return None
 
         return session_info["user_id"]
