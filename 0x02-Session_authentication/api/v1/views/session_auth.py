@@ -5,10 +5,10 @@ from api.v1.views import app_views
 from flask import abort, jsonify, request
 from models.user import User
 import  os
-from typing import TypeVar 
+from typing import json 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def session_login() ->  TypeVar("User"):
+def session_login() -> jsonify:
     """Handles the login route"""
     from api.v1.app import auth
 
@@ -21,17 +21,17 @@ def session_login() ->  TypeVar("User"):
         return jsonify({"error": "password missing"}), 400
 
     users = User.search({'email': email})
-    if not user:
+    if not users:
         return jsonify({"error": "no user found for this email"}), 404
-        
+
     for user in users:
         if user.is_valid_password(password):
             break
-        else:
-            return jsonify({"error": "wrong password"}), 401
+    else:
+        return jsonify({"error": "wrong password"}), 401
 
     session_id = auth.create_session(user.id)
-    response = jsonify({user.to_json()})
+    response = jsonify(user.to_json())
     response.set_cookie(os.getenv("SESSION_NAME"), session_id)
 
     return response
