@@ -10,6 +10,7 @@ import re
 from flask import request
 from typing import List, TypeVar
 import flask
+import os
 
 
 class Auth:
@@ -30,7 +31,8 @@ class Auth:
         ]
         for excluded_path in normalized_excluded_paths:
             if re.search(r"\*$", excluded_path):
-                if re.search("^" + excluded_path.replace("*", ""), normalized_path):
+                if re.search("^" + excluded_path.replace("*", ""),
+                             normalized_path):
                     return False
             else:
                 if normalized_path == excluded_path:
@@ -50,3 +52,13 @@ class Auth:
         Retrieves the current user.
         """
         return None
+
+
+    def session_cookie(self, request=None) -> str:
+        """
+        Retrieves a cookie value from a request.
+        """
+        if request is None:
+            return None
+        session_name = os.getenv("SESSION_NAME")
+        return request.cookies.get(session_name)
