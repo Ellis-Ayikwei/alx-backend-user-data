@@ -4,10 +4,8 @@ from api.v1.auth.session_auth import SessionAuth
 import os
 from datetime import datetime, timedelta
 
-sa = SessionAuth()
 
-
-class SessionExpAuth(sa):
+class SessionExpAuth(SessionAuth):
     """Define the class for the session exp auth"""
     def __init__(self):
         self.session_duration = int(os.getenv('SESSION_DURATION')) \
