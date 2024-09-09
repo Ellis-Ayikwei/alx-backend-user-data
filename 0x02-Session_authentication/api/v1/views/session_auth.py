@@ -38,7 +38,7 @@ def session_login() -> jsonify:
 
 
 @app_views.route('/auth_session/logout', methods=['DELETE'],
-                     strict_slashes=False)
+                 strict_slashes=False)
 def logout() -> jsonify:
     """Handles the logout route"""
     from api.v1.app import auth
