@@ -38,14 +38,17 @@ def check_auth() -> None:
         "/api/v1/status/",
         "/api/v1/unauthorized/",
         "/api/v1/forbidden/",
+        "/api/v1/auth_session/login/",
     ]
 
     if not auth.require_auth(path, excluded_paths):
         return
 
     auth_header = auth.authorization_header(request)
-    if auth_header is None:
+    sesh_cookie = auth.session_cookie(request)
+    if auth_header is None and sesh_cookie is None:
         abort(401)
+        return None
     current_user = auth.current_user(request)
     if current_user is None:
         abort(403)
