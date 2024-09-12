@@ -28,14 +28,22 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """returns a user object from the database"""
+        """
+        Adds a new user to the database and returns the new user object.
+
+        Args:
+            email (str): The new user's email address.
+            hashed_password (str): The new user's hashed password.
+
+        Returns:
+            User: The new user object.
+        """
+        new_user = User(email=email, hashed_password=hashed_password)
+
         try:
-            user = User(email=email, hashed_password=hashed_password)
-            self._session.add(user)
+            self._session.add(new_user)
             self._session.commit()
-            self._session.refresh(user)
-            return user
+            self._session.refresh(new_user)
+            return new_user
         except Exception:
             self._session.rollback()
-            return None
-
