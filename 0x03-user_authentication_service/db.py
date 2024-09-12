@@ -28,7 +28,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str) -> TypeVar("user"):
+    def add_user(self, email: str, hashed_password: str) -> User:
         """returns a user object from the database"""
         try:
             user = User(email=email, hashed_password=hashed_password)
