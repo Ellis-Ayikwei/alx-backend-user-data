@@ -29,16 +29,19 @@ def users():
 def login():
     email = request.form.get("email")
     password = request.form.get("password")
-    if email and password:
-        user = AUTH.valid_login(email, password)
-        if user:
-            session_id = _generate_uuid()
-            AUTH.create_session(session_id)
-            response = jsonify({"email": email, "message": "logged in"})
-            response.set_cookie("session_id", session_id)
-            return response
+    try:
+        if email and password:
+            user = AUTH.valid_login(email, password)
+            if user:
+                session_id = _generate_uuid()
+                AUTH.create_session(session_id)
+                response = jsonify({"email": email, "message": "logged in"})
+                response.set_cookie("session_id", session_id)
+                return response
+            abort(401)
         abort(401)
-    abort(401)
+    except Exception:
+        abort(401)
 
 
 @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
