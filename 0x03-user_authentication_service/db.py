@@ -9,6 +9,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from user import Base, User
+import bcrypt
 
 import logging
 
@@ -74,7 +75,7 @@ class DB:
         user = self.find_user_by(id=user_id)
         for key, value in kwargs.items():
             if hasattr(User, key):
-                setattr(User, key, value)
+                setattr(user, key, value)
             else:
                 raise ValueError
         self._session.commit()
