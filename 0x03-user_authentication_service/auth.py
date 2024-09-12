@@ -41,7 +41,6 @@ class Auth:
             if existing_user is not None:
                 raise ValueError(f"User {email} already exists")
         except NoResultFound:
-            # No existing user found, proceed with registration
             pass
 
         new_user = self._db.add_user(email, _hash_password(password))
