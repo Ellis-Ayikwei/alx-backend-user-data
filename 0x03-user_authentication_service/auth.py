@@ -76,3 +76,8 @@ class Auth:
                 return session_id
         except Exception:
             return None
+
+    @staticmethod
+    def _generate_uuid() -> str:
+        """Return a string of the UUID"""
+        return str(uuid.uuid4())
