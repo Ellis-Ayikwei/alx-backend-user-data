@@ -7,8 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from typing import TypeVar
-from user import Base
-from user import User
+from user import Base, User
 
 
 class DB:
@@ -31,7 +30,11 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> TypeVar("user"):
         """returns a user object from the database"""
-        user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
-        self._session.commit()
+        try:
+            user = User(email=email, hashed_password=hashed_password)
+            self._session.add(user)
+            self._session.commit()
+        except Exception:
+            self._session.rollback()
+            user = None
         return user

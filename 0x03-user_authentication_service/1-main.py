@@ -2,6 +2,9 @@
 """
 Main file
 """
+import logging
+logging.getLogger('sqlalchemy.engine').setLevel(logging.WARNING)
+
 
 from db import DB
 from user import User
