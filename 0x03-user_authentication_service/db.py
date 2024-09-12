@@ -9,7 +9,9 @@ from sqlalchemy.orm.session import Session
 from user import Base, User
 
 import logging
-logging.getLogger('sqlalchemy').setLevel(logging.WARNING)
+
+logging.getLogger("sqlalchemy").setLevel(logging.WARNING)
+
 
 class DB:
     """DB class"""
