@@ -169,7 +169,8 @@ def update_password(email: str, reset_token: str, new_password: str) -> None:
     Raises:
         AssertionError: If the PUT request failed.
     """
-    payload = {"email": email, "reset_token": reset_token, "new_password": new_password}
+    payload = {"email": email, "reset_token": reset_token,
+               "new_password": new_password}
     r = requests.put("http://127.0.0.1:5000/reset_password", payload)
 
     # Check that the response was successful
