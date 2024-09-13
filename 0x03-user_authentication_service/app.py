@@ -19,10 +19,13 @@ def index():
 def users():
     email = request.form["email"]
     password = request.form["password"]
-    user = AUTH.register_user(email, password)
-    if user:
-        return jsonify({"email": email, "message": "user created"})
-    return jsonify({"message": "user already exists"}), 400
+    try:
+        user = AUTH.register_user(email, password)
+        if user:
+            return jsonify({"email": email, "message": "user created"})
+    except Exception:
+        return jsonify({"message": "user already exists"}), 400
+   
 
 
 @app.route("/sessions", methods=["POST"], strict_slashes=False)
@@ -54,7 +57,7 @@ def logout():
     return make_response("", 403)
 
 
-@app.route("/profile", methods=["GET"], strict_slahes=False)
+@app.route("/profile", methods=["GET"], strict_slashes=False)
 def profile():
     session_id = request.cookies.get("session_id")
     try:
