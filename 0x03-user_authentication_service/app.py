@@ -75,12 +75,14 @@ def profile() -> str:
         - A JSON response containing the user's email address.
     """
     session_id = request.cookies.get("session_id")
-    try:
-        user = AUTH.get_user_from_session_id(session_id)
-        if user is None:
-            return jsonify({"email": user.email}), 200
-    except Exception:
-        abort(403)
+    if session_id:
+        try:
+            user = AUTH.get_user_from_session_id(session_id)
+            if user is None:
+                return jsonify({"email": user.email}), 200
+        except Exception:
+            abort(403)
+    abort(403)
 
 
 @app.route("/reset_password", methods=["POST"], strict_slashes=False)
