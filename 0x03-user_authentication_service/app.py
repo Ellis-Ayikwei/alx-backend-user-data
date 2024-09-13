@@ -69,10 +69,10 @@ def profile() -> str:
         - The user's profile information as a JSON object.
 
     Args:
-        - request: The HTTP request object.
+        - request (Request): The HTTP request object.
 
     Returns:
-        - A JSON response containing the user's email address.
+        - A JSON response containing the user's email address (str).
     """
     session_id = request.cookies.get("session_id")
     if session_id:
