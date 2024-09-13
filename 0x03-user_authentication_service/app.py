@@ -89,14 +89,24 @@ def get_reset_password_token() -> str:
 
 @app.route("/reset_password", methods=["PUT"], strict_slashes=False)
 def update_password() -> str:
-    """update the password"""
+    """Update the user's password.
+
+    Args:
+        email (str): The user's email address.
+        reset_token (str): The user's reset token.
+        new_password (str): The user's new password.
+
+    Returns:
+        - A JSON dictionary with a message indicating success or failure.
+    """
     try:
-        email = request.form.get("email", "None")
-        reset_token = request.form.get("reset_token", "None")
-        new_password = request.form.get("new_password", "None")
+        email = request.form.get("email")
+        reset_token = request.form.get("reset_token")
+        new_password = request.form.get("new_password")
         if reset_token is not None and new_password is not None:
             AUTH.update_password(reset_token, new_password)
             return jsonify({"email": email, "message": "Password updated"}), 200
+
         abort(403)
     except Exception:
         abort(403)
