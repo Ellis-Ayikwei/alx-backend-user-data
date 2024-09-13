@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""
-Defines the Flask application for user authentication.
-"""
-
-from flask import Flask, jsonify, request, make_response, redirect, url_for, abort
-from auth import Auth, _generate_uuid
+""" Defines A"""
+from flask import Flask, jsonify, request, make_response, redirect, url_for
+from auth import Auth
+from flask import abort
+from auth import _generate_uuid
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -23,13 +22,14 @@ def users():
         user = AUTH.register_user(email, password)
         if user:
             return jsonify({"email": email, "message": "user created"})
-    except ValueError:
+    except Exception:
         return jsonify({"message": "user already exists"}), 400
 
 
 @app.route("/sessions", methods=["POST"], strict_slashes=False)
 def login():
     """End-point for user login."""
+
     email = request.form["email"]
     password = request.form["password"]
     if email and password:
@@ -41,7 +41,7 @@ def login():
                 response = jsonify({"email": email, "message": "logged in"})
                 response.set_cookie("session_id", session_id)
                 return response
-        except ValueError:
+        except Exception:
             abort(401)
     abort(401)
 
@@ -54,10 +54,11 @@ def logout():
             user = AUTH.get_user_from_session_id(session_id)
             if user:
                 AUTH.destroy_session(user.id)
+            else:
                 return redirect("/")
         abort(403)
-    except ValueError:
-        abort(403)
+    except Exception:
+        return abort(403)
 
 
 @app.route("/profile", methods=["GET"], strict_slashes=False)
@@ -77,22 +78,22 @@ def profile() -> str:
     if session_id:
         try:
             user = AUTH.get_user_from_session_id(session_id)
-            if user:
+            if user is None:
                 return jsonify({"email": user.email}), 200
-        except ValueError:
+        except Exception:
             abort(403)
     abort(403)
 
 
 @app.route("/reset_password", methods=["POST"], strict_slashes=False)
 def get_reset_password_token() -> str:
-    """Get the reset password token."""
+    """get the rest password token"""
     email = request.form["email"]
     try:
         token = AUTH.get_reset_password_token(email)
         if token:
             return jsonify({"email": email, "reset_token": token}), 200
-    except ValueError:
+    except Exception:
         abort(403)
 
 
@@ -113,10 +114,11 @@ def update_password() -> str:
         reset_token = request.form.get("reset_token")
         new_password = request.form.get("new_password")
         if not email or not reset_token or not new_password:
-            raise ValueError
+            raise Exception
         AUTH.update_password(reset_token, new_password)
-        return jsonify({"email": email, "message": "Password updated"}), 200
-    except ValueError:
+        return jsonify({"email": email, "message":
+                        "Password updated"}), 200
+    except Exception:
         abort(403)
 
 
