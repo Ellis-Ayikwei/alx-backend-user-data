@@ -5,9 +5,8 @@ from auth import Auth
 from flask import abort
 from auth import _generate_uuid
 
-AUTH = Auth()
-
 app = Flask(__name__)
+AUTH = Auth()
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
