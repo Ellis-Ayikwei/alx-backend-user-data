@@ -29,27 +29,22 @@ def users():
 
 @app.route("/sessions", methods=["POST"], strict_slashes=False)
 def login():
-    """
-    End-point for user login.
-    """
-    email = request.form.get("email")
-    password = request.form.get("password")
+    """End-point for user login."""
 
-    try:
-        if email and password:
+    email = request.form["email"]
+    password = request.form["password"]
+    if email and password:
+        try:
             user = AUTH.valid_login(email, password)
             if user:
                 session_id = _generate_uuid()
                 AUTH.create_session(session_id)
-                response = jsonify({"email": user.email,
-                                    "message": "logged in"})
+                response = jsonify({"email": email, "message": "logged in"})
                 response.set_cookie("session_id", session_id)
                 return response
-            return make_response("", 401)
-        return make_response("", 401)
-    except Exception:
-        return make_response("", 401)
-
+        except Exception:
+            abort(401)
+    abort(401)
 
 @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
 def logout():
@@ -73,4 +68,5 @@ def profile():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run(host="0.0.0.0", port="5000", debug=True)
+    print("running.............")

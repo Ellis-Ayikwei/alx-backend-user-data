@@ -11,9 +11,6 @@ from sqlalchemy.orm.session import Session
 from user import Base, User
 import bcrypt
 
-import logging
-
-logging.getLogger("sqlalchemy").setLevel(logging.WARNING)
 
 
 class DB:
