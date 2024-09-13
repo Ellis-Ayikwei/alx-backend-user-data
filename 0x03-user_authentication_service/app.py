@@ -56,7 +56,6 @@ def logout():
             if user:
                 AUTH.destroy_session(user.id)
                 return redirect("/")
-        return make_response("", 403)
     except Exception:
         return make_response("", 403)
 
