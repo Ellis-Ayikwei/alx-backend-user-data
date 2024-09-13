@@ -98,12 +98,14 @@ class Auth:
         except Exception:
             return None
 
-
     def get_reset_password_token(self, email: str) -> str:
         """retuns a token"""
-        user = self._db.find_user_by(email=email)
-        if user:
-            uid = str(uuid.uuid4())
-            user.reset_token = uuid
-        else:
-            raise ValueError
+        try:
+            user = self._db.find_user_by(email=email)
+            if user:
+                uid = str(uuid.uuid4())
+                user.reset_token = uuid
+            else:
+                raise ValueError
+        except:
+            pass
