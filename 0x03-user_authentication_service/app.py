@@ -95,7 +95,7 @@ def update_password() -> str:
     try:
         AUTH.update_password(token, new_pass)
     except Exception:
-        return make_response("", 403)
+        abort(403)
     return jsonify({"email": email, "message": "Password updated"}), 200
 
 
