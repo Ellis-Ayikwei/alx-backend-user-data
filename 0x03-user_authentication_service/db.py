@@ -12,7 +12,6 @@ from user import Base, User
 import bcrypt
 
 
-
 class DB:
     """DB class"""
 
@@ -61,8 +60,11 @@ class DB:
                 values.append(value)
             else:
                 raise InvalidRequestError
-            result = self._session.query(User).\
-                filter(tuple_(*fields).in_([tuple(values)])).first()
+            result = (
+                self._session.query(User)
+                .filter(tuple_(*fields).in_([tuple(values)]))
+                .first()
+            )
             if result is None:
                 raise NoResultFound
             return result
