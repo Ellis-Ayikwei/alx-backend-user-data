@@ -99,17 +99,16 @@ def update_password() -> str:
     Returns:
         - A JSON dictionary with a message indicating success or failure.
     """
-    try:
-        email = request.form.get("email")
-        reset_token = request.form.get("reset_token")
-        new_password = request.form.get("new_password")
-        if reset_token is not None and new_password is not None:
+    email = request.form.get("email")
+    reset_token = request.form.get("reset_token")
+    new_password = request.form.get("new_password")
+    if reset_token and new_password:
+        try:
             AUTH.update_password(reset_token, new_password)
             return jsonify({"email": email, "message": "Password updated"}), 200
-
-        abort(403)
-    except Exception:
-        abort(403)
+        except Exception:
+            pass
+    return jsonify({"message": "Wrong token"}), 403
 
 
 if __name__ == "__main__":
