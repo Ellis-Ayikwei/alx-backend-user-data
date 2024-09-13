@@ -57,11 +57,11 @@ def logout():
                 AUTH.destroy_session(user.id)
                 return redirect("/")
             else:
-                return make_response("", 403)
+                abort(403)
         else:
-            return make_response("", 403)
+            abort(403)
     except Exception:
-        return make_response("", 403)
+        abort(403)
 
 
 @app.route("/profile", methods=["GET"], strict_slashes=False)
