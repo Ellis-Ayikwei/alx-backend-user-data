@@ -97,5 +97,3 @@ class Auth:
             return None
         except Exception:
             return None
-        
-    
