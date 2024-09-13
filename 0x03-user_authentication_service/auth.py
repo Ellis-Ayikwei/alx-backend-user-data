@@ -16,11 +16,6 @@ def _hash_password(password: str) -> bytes:
     return bcrypt.hashpw(password_bytes, salt)
 
 
-def _generate_uuid() -> str:
-    """Return a string of the UUID"""
-    return str(uuid.uuid4())
-
-
 class Auth:
     """Auth class to interact with the authentication database."""
 
