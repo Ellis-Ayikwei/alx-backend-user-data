@@ -95,7 +95,7 @@ def update_password():
     resetted = False
 
     try:
-        Auth.update_password(token, new_pass) is not None
+        Auth.update_password(token, new_pass)
         resetted = True
     except ValueError:
         resetted = False
