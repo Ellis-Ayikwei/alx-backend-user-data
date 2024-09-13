@@ -49,22 +49,15 @@ def login():
 
 @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
 def logout():
-    session_id = request.cookies.get("session_id")
-    if session_id is None:
-        abort(403)
-
     try:
-        user_id = AUTH.get_user_from_session_id(session_id).id
+        session_id = request.cookies.get("session_id")
+        if session_id:
+            user = AUTH.get_user_from_session_id(session_id)
+            if user:
+                AUTH.destroy_session(user.id)
+        return redirect("/")
     except Exception:
-        abort(403)
-
-    try:
-        AUTH.destroy_session(user_id)
-    except Exception:
-        abort(403)
-
-    return redirect("/")
-    
+        return make_response("", 403)
 
 
 @app.route("/profile", methods=["GET"], strict_slashes=False)
