@@ -90,17 +90,12 @@ def get_reset_password_token() -> str:
 @app.route("/reset_password", methods=["PUT"], strict_slashes=False)
 def update_password() -> str:
     email = request.form["email"]
-    token = request.form["reset_token"]
-    new_pass = request.form["new_password"]
-    ressetted = False
+    reset_token = request.form["reset_token"]
+    new_password = request.form["new_password"]
     try:
-        if token and new_pass:
-            AUTH.update_password(token, new_pass)
-            ressetted =True
+        if reset_token and new_password:
+            AUTH.update_password(reset_token, new_password)
     except Exception:
-        ressetted = False
-        
-    if not ressetted:
         abort(403)
     return jsonify({"email": email, "message": "Password updated"}), 200
 
