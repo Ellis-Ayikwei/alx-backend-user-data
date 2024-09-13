@@ -94,9 +94,8 @@ def update_password():
     new_pass = request.form["new_password"]
 
     try:
-        if Auth.update_password(token, new_pass) is not None:
-            return jsonify({"email": email, "message": "Password updated"}), 200
-        abort(403)
+        Auth.update_password(token, new_pass) is not None
+        return jsonify({"email": email, "message": "Password updated"}), 200
     except Exception:
         abort(403)
 
