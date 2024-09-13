@@ -101,7 +101,7 @@ def update_password() -> str:
         ressetted = False
         
     if not ressetted:
-            abort(403)
+        abort(403)
     return jsonify({"email": email, "message": "Password updated"}), 200
 
 
