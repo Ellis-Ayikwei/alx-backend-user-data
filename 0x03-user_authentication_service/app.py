@@ -119,7 +119,7 @@ def update_password() -> str:
         return jsonify({"email": email, "message":
                         "Password updated"}), 200
     except Exception:
-        abort(401)
+        abort(403)
 
 
 if __name__ == "__main__":
