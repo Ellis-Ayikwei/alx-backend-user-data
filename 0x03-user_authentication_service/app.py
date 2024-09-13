@@ -54,11 +54,13 @@ def login():
 @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
 def logout():
     session_id = request.cookies.get("session_id")
-    user = AUTH.get_user_from_session_id(session_id)
-    if user:
-        AUTH.destroy_session(user.id)
-        return redirect(url_for('index'))
-    return make_response("", 403)
+    try:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user:
+            AUTH.destroy_session(user.id)
+            return redirect(url_for('index'))
+    except Exception:
+        return make_response("", 403)
 
 
 @app.route("/profile", methods=["GET"], strict_slashes=False)
