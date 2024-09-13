@@ -95,8 +95,7 @@ def update_password():
 
     try:
         user_token_in_db = AUTH.get_reset_password_token(email)
-        if token == user_token_in_db:
-            Auth.update_password(token, new_pass)
+        if Auth.update_password(token, new_pass):
             return jsonify({"email": email, "message": "Password updated"}), 200
         abort(403)
     except Exception:
