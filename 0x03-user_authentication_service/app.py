@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 """ Defines A"""
-from typing import Tuple
-from flask import Flask, Response, jsonify, request, make_response, redirect, url_for
+from flask import Flask, jsonify, request, make_response, redirect, url_for
 from auth import Auth
 from flask import abort
 from auth import _generate_uuid
-from user import User
 
 app = Flask(__name__)
 AUTH = Auth()
@@ -64,11 +62,11 @@ def logout():
 
 
 @app.route("/profile", methods=["GET"], strict_slashes=False)
-def profile() -> Tuple[Response, int]:
+def profile() -> str:
     """GET /profile
 
     Returns:
-        - A JSON response containing the user's email address.
+        - The user's profile information as a JSON object.
 
     Args:
         - request: The HTTP request object.
@@ -76,12 +74,13 @@ def profile() -> Tuple[Response, int]:
     Returns:
         - A JSON response containing the user's email address.
     """
-    session_id: str = request.cookies.get("session_id")
-    user: User = AUTH.get_user_from_session_id(session_id)
-    if user is None:
+    session_id = request.cookies.get("session_id")
+    try:
+        user = AUTH.get_user_from_session_id(session_id)
+        if user is None:
+            return jsonify({"email": user.email}), 200
+    except Exception:
         abort(403)
-    response: Response = jsonify({"email": user.email})
-    return response, 200
 
 
 @app.route("/reset_password", methods=["POST"], strict_slashes=False)
