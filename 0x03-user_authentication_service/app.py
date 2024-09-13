@@ -89,13 +89,18 @@ def get_reset_password_token() -> str:
 
 @app.route("/reset_password", methods=["PUT"], strict_slashes=False)
 def update_password() -> str:
+    """
+    Handles password reset form submission.
+    """
     email = request.form["email"]
     reset_token = request.form["reset_token"]
     new_password = request.form["new_password"]
     try:
         if reset_token and new_password:
             AUTH.update_password(reset_token, new_password)
-            return jsonify({"email": email, "message": "Password updated"}), 200
+            response = jsonify({"email": email, "message": "Password updated"})
+            response.status_code = 200
+            return response
     except Exception:
         abort(403)
 
