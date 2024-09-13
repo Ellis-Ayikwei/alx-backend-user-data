@@ -94,9 +94,10 @@ def update_password():
     new_pass = request.form["new_password"]
 
     try:
-        user_pass_reset = Auth.update_password(token, new_pass)
-        if user_pass_reset:
-            return jsonify({"email": email, "message": "Password updated"}), 200
+        if token == AUTH.get_reset_password_token(email):
+            user_pass_reset = Auth.update_password(token, new_pass)
+            if user_pass_reset:
+                return jsonify({"email": email, "message": "Password updated"}), 200
     except Exception:
         abort(403)
 
