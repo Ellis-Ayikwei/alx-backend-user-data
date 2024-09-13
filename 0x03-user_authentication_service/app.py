@@ -96,7 +96,7 @@ def update_password():
     try:
         Auth.update_password(token, new_pass) is not None
         return jsonify({"email": email, "message": "Password updated"}), 200
-    except Exception:
+    except ValueError:
         abort(403)
 
 
