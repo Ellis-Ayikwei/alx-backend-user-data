@@ -93,6 +93,7 @@ def update_password():
     token = request.form["reset_token"]
     new_pass = request.form["new_password"]
 
+    print(email, flush=True)
     try:
         Auth.update_password(token, new_pass) is not None
     except ValueError:
