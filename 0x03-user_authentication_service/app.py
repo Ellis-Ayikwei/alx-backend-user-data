@@ -93,7 +93,7 @@ def update_password() -> str:
     token = request.form["reset_token"]
     new_pass = request.form["new_password"]
     try:
-        if token and email and new_pass:
+        if token and new_pass:
             AUTH.update_password(token, new_pass)
     except Exception:
         abort(403)
